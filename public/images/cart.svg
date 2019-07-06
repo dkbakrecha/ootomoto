@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="46.557" height="46.556" viewBox="0 0 46.557 46.556">
+  <g id="Icon" transform="translate(0 0)">
+    <g id="Icon.BG" transform="translate(0 0)" fill="#fff" stroke="#a3a1fb" stroke-width="1">
+      <circle cx="23.278" cy="23.278" r="23.278" stroke="none"/>
+      <circle cx="23.278" cy="23.278" r="22.778" fill="none"/>
+    </g>
+    <path id="cart-icon" d="M13.494,17.152a2.451,2.451,0,1,1,2.45,2.451A2.45,2.45,0,0,1,13.494,17.152Zm-12.251,0A2.45,2.45,0,1,1,3.693,19.6,2.45,2.45,0,0,1,1.243,17.152ZM0,13.477v-2.45H15.021L16.77,4.9H2.468V2.45H.018V0H3.693A1.224,1.224,0,0,1,4.918,1.225V2.45H18.4a1.251,1.251,0,0,1,1.178,1.562l-2.45,8.575a1.226,1.226,0,0,1-1.179.889ZM1.225,9.8V8.576h4.9V9.8ZM2.451,7.35V6.125h4.9V7.35Z" transform="translate(13.477 13.477)" fill="#a4a1fb"/>
+  </g>
+</svg>

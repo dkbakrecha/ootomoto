@@ -1,0 +1,1 @@
+<input id="name" type="text" placeholder="{{ __('messages.category_name') }}" class="form-control" name="name" value="{{ old('name') }}" required autofocus>          
