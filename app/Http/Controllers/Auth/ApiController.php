@@ -231,9 +231,7 @@ class ApiController extends Controller {
     //Login Concept HERE API
 
     public function login(Request $request) {
-        //$this->validateLogin($request);
-
-        if (is_numeric($request->get('email'))) {
+        if (is_numeric($request->get('phone'))) {
             // API check Phone validation && password
             $validator = Validator::make($request->all(), [
                         'email' => 'required|digits:10',
@@ -241,33 +239,32 @@ class ApiController extends Controller {
             ]);
 
             $userInfo = User::select('users.id', 'users.email', 'users.phone', 'users.status', 'users.is_phone_verified')
-                            ->where('phone', '=', $request->email)->first();
+                            ->where('phone', '=', $request->phone)->first();
         } else {
             // API check Email address validation && password
             $validator = Validator::make($request->all(), [
-                        'email' => 'required|string|email',
+                        'phone' => 'required|string|email',
                         'password' => 'required|string',
             ]);
 
+
+
             $userInfo = User::select('users.id', 'users.email', 'users.phone', 'users.status', 'users.is_phone_verified')
-                            ->where('email', '=', $request->email)->first();
+                            ->where('email', '=', $request->phone)->first();
+
         }
+
+        $request->email = $request->phone;
 
         if ($validator->fails()) {
             return $this->sendError($validator->errors()->first(), null, 400);
         }
-
-
-
+//prd($userInfo);
         if ($this->attemptLogin($request)) {
             /* Message To customer if his account is block due to suspended */
             $_cancelNumber = \App\SiteSetting::where('unique_key', '=', 'CANCELLATION_NUMBER')->first();
             $cancelNumber = (!empty($_cancelNumber->value) && $_cancelNumber->value > 0) ? $_cancelNumber->value : 3; // Default value 3
             
-            if ($userInfo->no_show_count > $cancelNumber) {
-                return $this->sendError("Your account is suspended by admin, please contact support team for more details.", null, 400);
-            }
-
             /* Message To customer if his account is block normally */
             if ($userInfo->status == 0) {
                 return $this->sendError("Your account is blocked by admin, please contact support team for more details.", null, 400);
@@ -352,8 +349,10 @@ class ApiController extends Controller {
     }
 
     protected function credentials(Request $request) {
-        if (is_numeric($request->get('email'))) {
-            return ['phone' => $request->get('email'), 'password' => $request->get('password')];
+        if (is_numeric($request->get('phone'))) {
+            return ['phone' => $request->get('phone'), 'password' => $request->get('password')];
+        }else{
+            return ['email' => $request->get('phone'), 'password' => $request->get('password')];
         }
         return $request->only($this->username(), 'password');
         //return $request->only($this->username(), 'password');
